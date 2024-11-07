@@ -3,7 +3,6 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UserManager(BaseUserManager):
-
     def create_superuser(self, email, password):
         user = self.model(email=self.normalize_email(email))
         user.set_password(password)
