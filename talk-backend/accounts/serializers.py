@@ -1,12 +1,12 @@
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 from django.conf import settings
 from accounts.models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        filds = ["id", "avatar", "name", "email", "last_access"]
+        fields = ["id", "avatar", "name", "email", "last_access"]
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
