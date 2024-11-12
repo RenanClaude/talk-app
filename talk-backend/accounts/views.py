@@ -100,13 +100,13 @@ class UserView(APIView):
             },
         )
 
-        if not serializer.is_valid:
+        if not serializer.is_valid():
             if avatar:
                 storage.delete(avatar.split("/")[-1])
 
             first_error = list(serializer.errors.values())[0][0]
             raise ValidationError(first_error)
-        
+
         # Delete old avatar
         if avatar and request.user.avatar != "/media/avatars/default-avatar.png":
             storage.delete(request.user.avatar.split("/")[-1])
@@ -117,6 +117,4 @@ class UserView(APIView):
 
         serializer.save()
 
-        return Response({
-            "user": serializer.data
-        })
+        return Response({"user": serializer.data})
