@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from attachments.models import FileAttachment, AudioAttachments
-from utils.formatter import Formatter
+from attachments.utils.formatter import Formatter
 from django.conf import settings
 
 

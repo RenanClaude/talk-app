@@ -25,7 +25,7 @@ class ChatsView(BaseView):
             chats, context={"user_id": request.user.id}, many=True
         ).data
 
-        return Response({"chats": serializer.data})
+        return Response({"chats": serializer})
 
     def post(self, request):
         email = request.data.get("email")
@@ -39,13 +39,17 @@ class ChatsView(BaseView):
         # Creating chat
         if not chat:
             chat = Chat.objects.create(
-                from_user=request.user, to_user=user, viewed_at=now
+                from_user=request.user, to_user=user, viewed_at=now()
             )
 
-            chat = ChatSerializer(chat, context={"user_id": request.user.id}).data
+            chat = ChatSerializer(
+                chat, context={"user_id": request.user.id}
+            ).data
 
             # Sending chat to user
-            socket.emit("update_chat", {"query": {"users": [request.user.id, user.id]}})
+            socket.emit(
+                "update_chat", {"query": {"users": [request.user.id, user.id]}}
+            )
 
         return Response({"chat": chat})
 
@@ -53,12 +57,14 @@ class ChatsView(BaseView):
 class ChatView(BaseView):
     def delete(self, request, chat_id):
         # CHecking if chat belongs to user
-        chat = self.chat_belongs_to_user(chat_id=chat_id, user_id=request.user.id)
+        chat = self.chat_belongs_to_user(
+            chat_id=chat_id, user_id=request.user.id
+        )
 
         # Deleting chat
-        deleted = Chat.objects.filter(id=chat_id, deleted_at__isnull=True).update(
-            deleted_at=now()
-        )
+        deleted = Chat.objects.filter(
+            id=chat_id, deleted_at__isnull=True
+        ).update(deleted_at=now())
 
         if deleted:
             # Sending update chat to users
