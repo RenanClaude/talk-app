@@ -48,3 +48,29 @@ class ChatsView(BaseView):
             socket.emit("update_chat", {"query": {"users": [request.user.id, user.id]}})
 
         return Response({"chat": chat})
+
+
+class ChatView(BaseView):
+    def delete(self, request, chat_id):
+        # CHecking if chat belongs to user
+        chat = self.chat_belongs_to_user(chat_id=chat_id, user_id=request.user.id)
+
+        # Deleting chat
+        deleted = Chat.objects.filter(id=chat_id, deleted_at__isnull=True).update(
+            deleted_at=now()
+        )
+
+        if deleted:
+            # Sending update chat to users
+            socket.emit(
+                "update_chat",
+                {
+                    "type": "delete",
+                    "query": {
+                        "chat_id": chat_id,
+                        "users": [chat.from_user_id, chat.to_user_id],
+                    },
+                },
+            )
+
+        return Response({"success": True})
