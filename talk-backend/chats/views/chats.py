@@ -1,13 +1,9 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.db.models import Q
 from django.utils.timezone import now
 
-from accounts.models import User
-
-from chats.models import Chat, ChatMessage
-from chats.utils.exceptions import UserNotFound, ChatNotFound
+from chats.models import Chat
 from chats.serializers import ChatSerializer
 from chats.views.base import BaseView
 
