@@ -13,6 +13,9 @@ class Chat(models.Model):
     deleted_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"chat_id: {self.id}, users: {[self.from_user, self.to_user]}, deleted_at: {self.deleted_at}, viewed_at: {self.viewed_at}, created_at: {self.created_at},"
+
     class Meta:
         db_table = "chats"
 

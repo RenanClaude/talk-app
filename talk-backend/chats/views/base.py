@@ -47,5 +47,5 @@ class BaseView(APIView):
     # Mark messages that have been received as seen
     def mark_messages_as_seen(self, chat_id, user_id) -> None:
         ChatMessage.objects.filter(
-            chat_id=chat_id, viewd_at__isnull=True, deleted_at__isnull=True
+            chat_id=chat_id, viewed_at__isnull=True, deleted_at__isnull=True
         ).exclude(from_user=user_id).update(viewed_at=now())

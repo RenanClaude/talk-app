@@ -20,12 +20,11 @@ class ChatsView(BaseView):
             .order_by("-viewed_at")
             .all()
         )
-
         serializer = ChatSerializer(
             chats, context={"user_id": request.user.id}, many=True
-        ).data
+        )
 
-        return Response({"chats": serializer})
+        return Response({"chats": serializer.data})
 
     def post(self, request):
         email = request.data.get("email")

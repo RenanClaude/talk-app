@@ -2,7 +2,10 @@ from rest_framework import serializers
 from accounts.serializers import UserSerializer
 from chats.models import Chat, ChatMessage
 from attachments.models import FileAttachment, AudioAttachments
-from attachments.serializers import FileAttachmentSerializer, AudioAttachmentSerializer
+from attachments.serializers import (
+    FileAttachmentSerializer,
+    AudioAttachmentSerializer,
+)
 
 
 class ChatSerializer(serializers.ModelSerializer):
@@ -32,7 +35,9 @@ class ChatSerializer(serializers.ModelSerializer):
     def get_unseen_count(self, objChat):
         unseen_count = (
             ChatMessage.objects.filter(
-                chat_id=objChat.id, viewed_at__isnull=True, deleted_at__isnull=True
+                chat_id=objChat.id,
+                viewed_at__isnull=True,
+                deleted_at__isnull=True,
             )
             .exclude(from_user=self.context["user_id"])
             .count()
@@ -42,7 +47,7 @@ class ChatSerializer(serializers.ModelSerializer):
     def get_last_message(self, objChat):
         last_message = ChatMessage.objects.filter(
             chat_id=objChat.id, deleted_at__isnull=True
-        ).order_by("-created_at")
+        ).order_by("-created_at").first()
 
         if not last_message:
             return None
@@ -56,7 +61,14 @@ class ChatMessagesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatMessage
-        fields = ["id", "body", "attachment", "from_user", "viewed_at", "created_at"]
+        fields = [
+            "id",
+            "body",
+            "attachment",
+            "from_user",
+            "viewed_at",
+            "created_at",
+        ]
 
     def get_from_user(self, objMessage):
         return UserSerializer(objMessage.from_user).data

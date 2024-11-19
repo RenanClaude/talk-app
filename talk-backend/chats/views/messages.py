@@ -61,7 +61,7 @@ class ChatMessagesView(BaseView):
 
         # Marking messages as seen
         self.mark_messages_as_seen(chat_id=chat_id, user_id=request.user.id)
-
+        
         # Validating request params
         if not body and not file and not audio:
             raise ValidationError("Nenhum parâmetro foi informado.")
@@ -82,7 +82,7 @@ class ChatMessagesView(BaseView):
                 raise ValidationError("O arquivo deve ter no máximo 100MB.")
 
             # Upload new file
-            storage.save(f"{uuid.uuid4()}.{extension}", file)
+            file = storage.save(f"{uuid.uuid4()}.{extension}", file)
             src = storage.url(file)
 
             # Register new attachment in Data Base
