@@ -48,3 +48,94 @@ class ChatMessagesView(BaseView):
         )
 
         return Response({"messages": serializer.data})
+
+    def post(self, request, chat_id):
+        body = request.data.get("body")
+        file = request.FILES.get("file")
+        audio = request.FILES.get("audio")
+
+        # Checking if chat belongs to user
+        chat = self.chat_belongs_to_user(
+            chat_id=chat_id, user_id=request.user.id
+        )
+
+        # Marking messages as seen
+        self.mark_messages_as_seen(chat_id=chat_id, user_id=request.user.id)
+
+        # Validating request params
+        if not body and not file and not audio:
+            raise ValidationError("Nenhum parâmetro foi informado.")
+
+        attachment = None
+
+        if file:
+            storage = FileSystemStorage(
+                settings.MEDIA_ROOT / "files", settings.MEDIA_URL + "files"
+            )
+            content_type = file.content_type
+            name = file.name.split(".")[0]
+            extension = file.name.split(".")[-1]
+            size = file.size
+
+            # Validate file size
+            if size > 100000000:
+                raise ValidationError("O arquivo deve ter no máximo 100MB.")
+
+            # Upload new file
+            storage.save(f"{uuid.uuid4()}.{extension}", file)
+            src = storage.url(file)
+
+            # Register new attachment in Data Base
+            attachment = FileAttachment.objects.create(
+                name=name,
+                extension=extension,
+                size=size,
+                src=src,
+                content_type=content_type,
+            )
+
+        elif audio:
+            storage = FileSystemStorage(
+                settings.MEDIA_ROOT / "audios", settings.MEDIA_URL + "audios"
+            )
+
+            # Upload new audio
+            storage.save(f"{uuid.uuid4()}.mp3", audio)
+            src = storage.url(audio)
+
+            # Register new attachment in Data Base
+            attachment = AudioAttachments.objects.create(
+                src=src,
+            )
+
+        # Saving message
+        chat_message = ChatMessage.objects.create(
+            chat_id=chat_id,
+            body=body,
+            from_user_id=request.user.id,
+            attachment_code="FILE" if file else "AUDIO" if audio else None,
+            attachment_id=attachment.id if attachment else None,
+        )
+
+        chat_message_data = ChatMessagesSerializer(chat_message).data
+
+        # Emitting new message to chat
+        socket.emit(
+            "update_chat_message",
+            {
+                "type": "create",
+                "message": chat_message_data,
+                "query": {"chat_id": chat_id},
+            },
+        )
+
+        # Updating chat viewed at
+        Chat.objects.filter(id=chat_id).update(viewed_at=now())
+
+        # Sending update chat to user
+        socket.emit(
+            "update_chat",
+            {"query": {"users": [chat.from_user_id, chat.to_user_id]}},
+        )
+
+        return Response({"message": chat_message_data})
