@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { ThemeProvider } from "next-themes";
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 import { io } from "socket.io-client";
 import { Toaster } from "../ui/sonner";
 
@@ -22,7 +22,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       {children}
       <ProgressBar height="4px" color="#493cdd" shallowRouting />
       <Toaster />
-      
+
     </ThemeProvider>
   )
 }
