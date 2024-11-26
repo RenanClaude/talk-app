@@ -8,7 +8,7 @@ export const signInSchema = z.object({
   password: z.string().min(1, { message: "Senha obrigatória" }),
 });
 
-export type signInData = z.infer<typeof signInSchema>
+export type SignInData = z.infer<typeof signInSchema>
 
 // Sign up
 export const signUpSchema = z.object({
@@ -21,4 +21,4 @@ export const signUpSchema = z.object({
     .max(80, { message: "Senha extensa demais" }),
 });
 
-export type signUpData = z.infer<typeof signUpSchema>
+export type SignUpData = z.infer<typeof signUpSchema>
