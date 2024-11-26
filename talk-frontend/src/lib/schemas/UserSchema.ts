@@ -11,7 +11,7 @@ export const updateUserSchema = z.object({
     .max(80, { message: "Senha extensa demais" })
     .refine(value => !value || /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s]).+$/.test(value), { message: "A senha deve conter pelo menos uma letra, um número e um caracter especial" }),
   confirm_password: z.string()
-}).refine(data => data.password === data.confirm_password, {message: "A confirmação da senha falhou", path: ["confirm_password"]})
+}).refine(data => data.password === data.confirm_password, { message: "A confirmação da senha falhou", path: ["confirm_password"] })
 
 export type UpdateUserData = z.infer<typeof updateUserSchema>
 
