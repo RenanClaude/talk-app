@@ -42,7 +42,7 @@ export const handleGetUser = async () => {
     process.env.NEXT_PUBLIC_AUTH_KEY as string
   )?.value;
 
-  const response = await fetch(process.env.NEXT_PUBLIC_AUTH_KEY + "/api/v1/accounts/me", {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/v1/accounts/me", {
     headers: { Authorization: `Bearer ${authCookie}` },
   });
 
@@ -54,15 +54,20 @@ export const handleGetUser = async () => {
   return null;
 };
 
-export const handleSignOut = () => {
-  // cookies().delete(process.env.NEXT_PUBLIC_AUTH_KEY as string);
+// export const handleSignOut = () => {
+//   // cookies().delete(process.env.NEXT_PUBLIC_AUTH_KEY as string);
 
-  const res = NextResponse.json({ message: "Logout bem-sucedido" });
+//   const res = NextResponse.json({ message: "Logout bem-sucedido" });
 
-  res.cookies.set(process.env.NEXT_PUBLIC_AUTH_KEY as string, "", {
-    httpOnly: true,
-    maxAge: 0, // Expires immediately
-  });
+//   res.cookies.set(process.env.NEXT_PUBLIC_AUTH_KEY as string, "", {
+//     httpOnly: true,
+//     maxAge: 0, // Expires immediately
+//   });
 
+//   redirect("auth/signin");
+// };
+
+export const handleSignOut = async () => {
+  (await cookies()).delete(process.env.NEXT_PUBLIC_AUTH_KEY as string);
   redirect("auth/signin");
 };

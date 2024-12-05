@@ -6,12 +6,12 @@ export async function middleware(request: NextRequest) {
   const user = await handleGetUser();
 
   // Redirect to signin if user is not authenticated
-  if (!user && !request.nextUrl.pathname.startsWith("/auth")) {
+  if (!request.nextUrl.pathname.startsWith("/auth") && !user) {
     return NextResponse.redirect(new URL("/auth/signin", request.url));
   }
 
   // Redirect to home if user is authenticated
-  if (user && request.nextUrl.pathname.startsWith("/auth")) {
+  if (request.nextUrl.pathname.startsWith("/auth") && user ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
