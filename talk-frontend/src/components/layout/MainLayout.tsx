@@ -1,17 +1,14 @@
 "use client";
 
-import { userAuthSotre } from "@/stores/authStore";
+import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
 import { User } from "@/types/User";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Header } from "./Header";
-import { PulseLoader } from "react-spinners";
+import { BarLoader } from "react-spinners";
 import { LeftSide } from "./leftSide";
-import {
-  Sheet,
-  SheetContent
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 type PropsMainLayout = {
   user: User | null;
@@ -19,7 +16,7 @@ type PropsMainLayout = {
 };
 
 export const MainLayout = ({ user, children }: PropsMainLayout) => {
-  const auth = userAuthSotre();
+  const auth = useAuthStore();
   const { showChatsList, setShowChatsList } = useChatStore();
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,13 +32,13 @@ export const MainLayout = ({ user, children }: PropsMainLayout) => {
     <div className="h-screen w-screen overflow-hidden bg-slate-200 dark:bg-slate-950">
       <Header />
       {loading && (
-        <div className="items-center justify-center h-full">
-          <PulseLoader color="#493cdd" />
+        <div className="flex items-center justify-center h-full">
+          <BarLoader color="#493cdd" />
         </div>
       )}
 
       {!loading && auth.user && !pathname.includes("auth") ? (
-        <div>
+        <div className="flex h-full">
           <div className="hidden lg:block">
             <LeftSide />
           </div>

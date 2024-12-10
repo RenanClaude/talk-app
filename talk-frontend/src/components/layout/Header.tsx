@@ -1,5 +1,5 @@
 import { handleSignOut } from "@/lib/server/auth";
-import { userAuthSotre } from "@/stores/authStore";
+import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -20,7 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Header = () => {
   const { setTheme } = useTheme();
-  const { user, clearUser } = userAuthSotre();
+  const { user, clearUser } = useAuthStore();
   const { setChat, showChatsList, setShowChatsList } = useChatStore();
 
   const pathname = usePathname();
