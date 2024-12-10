@@ -1,5 +1,5 @@
 import { getChats } from "@/lib/requests";
-import { userAuthSotre } from "@/stores/authStore";
+import { useAuthStore } from "@/stores/authStore";
 import { useChatStore } from "@/stores/chatStore";
 import { Chat, UpdateChatEvent } from "@/types/Chat";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ type LeftSideProps = {
 
 export const LeftSide = ({ variant = "desktop" }: LeftSideProps) => {
   const { chat: currentChat, chats, setChats, setChat, setShowNewChat } = useChatStore();
-  const { user } = userAuthSotre();
+  const { user } = useAuthStore();
 
   const [queryInput, setQueryInput] = useState("");
   const [chatsFiltered, setChatsFiltered] = useState<Chat[]>([]);
