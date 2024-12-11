@@ -5,7 +5,6 @@ import { SignInData, SignUpData } from "@/lib/schemas/AuthSchemas";
 import { User } from "@/types/User";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
 
 export const handleSignIn = async (data: SignInData) => {
   const response = await signIn(data);
@@ -54,20 +53,7 @@ export const handleGetUser = async () => {
   return null;
 };
 
-// export const handleSignOut = () => {
-//   // cookies().delete(process.env.NEXT_PUBLIC_AUTH_KEY as string);
-
-//   const res = NextResponse.json({ message: "Logout bem-sucedido" });
-
-//   res.cookies.set(process.env.NEXT_PUBLIC_AUTH_KEY as string, "", {
-//     httpOnly: true,
-//     maxAge: 0, // Expires immediately
-//   });
-
-//   redirect("auth/signin");
-// };
-
 export const handleSignOut = async () => {
   (await cookies()).delete(process.env.NEXT_PUBLIC_AUTH_KEY as string);
-  redirect("auth/signin");
+  redirect("/auth/signin");
 };
