@@ -41,9 +41,12 @@ export const handleGetUser = async () => {
     process.env.NEXT_PUBLIC_AUTH_KEY as string
   )?.value;
 
-  const response = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/v1/accounts/me", {
-    headers: { Authorization: `Bearer ${authCookie}` },
-  });
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_API_BASE_URL + "/api/v1/accounts/me",
+    {
+      headers: { Authorization: `Bearer ${authCookie}` },
+    }
+  );
 
   const jsonResponse = await response.json();
   const userData = jsonResponse.user;
