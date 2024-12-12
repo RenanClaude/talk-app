@@ -1,15 +1,26 @@
 "use client";
 
 import { updateUser } from "@/lib/requests";
-import { SignInData } from "@/lib/schemas/AuthSchemas";
 import { UpdateUserData, updateUserSchema } from "@/lib/schemas/UserSchema";
-import { handleSignIn } from "@/lib/server/auth";
 import { useAuthStore } from "@/stores/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import router from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const AccountPage = () => {
   const { user, setUser } = useAuthStore();
@@ -64,5 +75,110 @@ export const AccountPage = () => {
     toast.success("Dados atualizados com sucesso!", { position: "top-center" });
   };
 
-  return <div></div>;
+  return (
+    <main className="h-app flex items-center justify-center overflow-auto px-6">
+      <Card className="w-full sm:w-[450px]">
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="pt-5 space-y-8">
+              <div className="space-y-6">
+                {loading ? (
+                  <>
+                    {...Array({ length: 7 }).map((_, key) => {
+                      <Skeleton key={key} className="h-10 rounded-md" />;
+                    })}
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-3">
+                      <Label htmlFor="avatar">Seu avatar</Label>
+
+                      <div className="flex items-center gap-3">
+                        <Avatar className="size-11">
+                          <AvatarImage
+                            src={avatarUrl ?? user?.avatar}
+                            alt={user?.avatar}
+                          />
+                          <AvatarFallback>{user?.name.slice(0, 2)}</AvatarFallback>
+                        </Avatar>
+
+                        <Input id="avatar" type="file" onChange={handleAvatarChange} />
+                      </div>
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Seu nome</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ex: João da Silva" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Seu email</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ex: joaodasilva@gmail.com" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Sua senha</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="Ex: senhasupersecreta"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="confirm_password"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Confirme sua senha</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="Ex: senhasupersecreta"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </>
+                )}
+              </div>
+
+              <Button className="w-full" disabled={loading}>
+                Atualizar os dados
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </main>
+  );
 };
