@@ -3,6 +3,9 @@
 import { useTheme } from "next-themes";
 import { ChangeEvent, useRef, useState } from "react";
 import { toast } from "sonner";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
+import { X } from "lucide-react";
 
 type ChatFooterProps = {
   onSendMessage: (data: {
@@ -101,5 +104,27 @@ export const ChatFooter = ({ onSendMessage }: ChatFooterProps) => {
     setMessageValue("");
   };
 
-  return <div></div>;
+  return (
+    <div>
+      <div
+        className={`fixed ml-2 ${
+          emojiPicker ? "opacity-100 bottom-16" : "opacity-0 -bottom[440px]"
+        } duration-300`}
+      >
+        <Picker data={data} theme={theme} onEmojiSelect={handleEmojiSelect} />
+      </div>
+
+      {messageAttachment && (
+        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400 bg-slate-100/80 dark:bg-slate-900/80 px-10 py-2 border-t">
+          <p className="text-xs">
+            Arquivo Carregado: {messageAttachment.name} - {messageAttachment.type}
+          </p>
+          <X
+            onClick={() => setMessageAttachment(null)}
+            className="size-4 hover:text-primary cursor-pointer"
+          />
+        </div>
+      )}
+    </div>
+  );
 };
