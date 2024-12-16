@@ -1,4 +1,4 @@
-import { FileAttachment } from "@/types/Attachment";
+import { AudioAttachment, FileAttachment } from "@/types/Attachment";
 import { Message } from "@/types/Message";
 import { FileText } from "lucide-react";
 
@@ -7,7 +7,7 @@ type MessageItemProps = {
   onDelete: (messageId: number) => void;
 };
 
-export const FileMessage = ({ data }: { data: FileAttachment }) => (
+const FileMessage = ({ data }: { data: FileAttachment }) => (
   <div className="flex items-center">
     <a href={data.src} target="_blank">
       {data.content_type.startsWith("image/") ? (
@@ -35,4 +35,10 @@ export const FileMessage = ({ data }: { data: FileAttachment }) => (
       )}
     </a>
   </div>
+);
+
+const AudioMessage = ({ data }: { data: AudioAttachment }) => (
+  <audio controls={true}>
+    <source src={data.src} type="audio/mpeg" />
+  </audio>
 );
