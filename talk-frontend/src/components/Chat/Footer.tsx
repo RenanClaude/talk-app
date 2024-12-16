@@ -148,7 +148,7 @@ export const ChatFooter = ({ onSendMessage }: ChatFooterProps) => {
               className="ml-6"
               size="sm"
               title="Enviar mensagem de voz"
-              onClick={handleSendMessage}
+              onClick={handleSendRecording}
             >
               <SendHorizonal className="text-slate-100" />
             </Button>
