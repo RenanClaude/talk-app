@@ -6,6 +6,10 @@ import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { socket } from "../layout/Providers";
 import dayjs from "dayjs";
+import { ChatHeader } from "./Header";
+import { ScaleLoader } from "react-spinners";
+import { MessageItem } from "./MessageItem";
+import { ChatFooter } from "./Footer";
 
 export const Chat = () => {
   const { chat, chatMessages, loading, setLoading, setChatMessages } = useChatStore();
@@ -32,7 +36,7 @@ export const Chat = () => {
     attachment,
     audio,
   }: {
-    text?: string;
+    text?: string | null;
     attachment?: File | null;
     audio?: Blob | null;
   }) => {
@@ -116,8 +120,30 @@ export const Chat = () => {
   }, [chatMessages]);
 
   return (
-    <div>
-      <div></div>
+    <div className="flex flex-col h-full">
+      <ChatHeader />
+
+      <div className="flex-1 overflow-auto">
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <ScaleLoader color="#493cdd" />
+          </div>
+        ) : (
+          <div className="space-y-8 p-7" ref={bodyMessageRef}>
+            {chatMessages?.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${
+                  message.from_user.id === user?.id ? "justify-end" : "justify-start"
+                }`}
+              >
+                <MessageItem data={message} onDelete={handleDeleteMessage} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <ChatFooter onSendMessage={handleSendMessage} />
     </div>
   );
 };
