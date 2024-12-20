@@ -29,7 +29,7 @@ export const HomePage = () => {
             </Button>
           </div>
           <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
-            <Lock size={4} strokeWidth={3} />
+            <Lock className="size-4" strokeWidth={3} />
             Suas mensagens pessoais são protegidas com criptografia de ponta a ponta.
           </div>
         </div>

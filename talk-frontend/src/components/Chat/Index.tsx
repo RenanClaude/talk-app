@@ -40,6 +40,7 @@ export const Chat = () => {
     attachment?: File | null;
     audio?: Blob | null;
   }) => {
+    // console.log("dataaaaaaaaa: " + text?.length)
     if (!chat) return;
     const formData = new FormData();
 

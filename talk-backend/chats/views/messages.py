@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 from chats.models import Chat, ChatMessage
-from chats.serializers import ChatSerializer, ChatMessagesSerializer
+from chats.serializers import ChatMessagesSerializer
 from chats.views.base import BaseView
 
 from attachments.models import FileAttachment, AudioAttachments
@@ -53,7 +53,7 @@ class ChatMessagesView(BaseView):
         body = request.data.get("body")
         file = request.FILES.get("file")
         audio = request.FILES.get("audio")
-
+        
         # Checking if chat belongs to user
         chat = self.chat_belongs_to_user(
             chat_id=chat_id, user_id=request.user.id
@@ -116,7 +116,6 @@ class ChatMessagesView(BaseView):
             attachment_code="FILE" if file else "AUDIO" if audio else None,
             attachment_id=attachment.id if attachment else None,
         )
-
         chat_message_data = ChatMessagesSerializer(chat_message).data
 
         # Emitting new message to chat

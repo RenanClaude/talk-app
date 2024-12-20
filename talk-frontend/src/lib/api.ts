@@ -22,7 +22,7 @@ export const api = async <TypeResponse>({
   withAttachment = false,
 }: Props) => {
   const instance = axios.create({ baseURL: BASE_URL });
-
+  
   if (withAuth) {
     // Getting auth cookie
     const sessionAuth = (await cookies()).get(process.env.NEXT_PUBLIC_AUTH_KEY as string);
@@ -47,7 +47,7 @@ export const api = async <TypeResponse>({
     const e = error as AxiosError<APIError>;
     return {
       error: {
-        message: e.response?.data.detail ?? "Ocorreu um erro inesperado",
+        message: e.response?.data.details ?? "Ocorreu um erro inesperado",
       },
     };
   }
