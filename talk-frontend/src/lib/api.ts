@@ -25,17 +25,12 @@ export const api = async <TypeResponse>({
 
   if (withAuth) {
     // Getting auth cookie
-    const sessionAuth = (await cookies()).get(
-      process.env.NEXT_PUBLIC_AUTH_KEY as string
-    );
+    const sessionAuth = (await cookies()).get(process.env.NEXT_PUBLIC_AUTH_KEY as string);
 
     if (sessionAuth?.value) {
-      instance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${sessionAuth.value}`;
+      instance.defaults.headers.common["Authorization"] = `Bearer ${sessionAuth.value}`;
     }
   }
-
   if (withAttachment) {
     instance.defaults.headers.common["Content-Type"] = "multipart/form-data";
   }
@@ -52,7 +47,7 @@ export const api = async <TypeResponse>({
     const e = error as AxiosError<APIError>;
     return {
       error: {
-        message: e.response?.data.details ?? "Ocorreu um erro inesperado",
+        message: e.response?.data.detail ?? "Ocorreu um erro inesperado",
       },
     };
   }

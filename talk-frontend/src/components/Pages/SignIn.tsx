@@ -69,9 +69,9 @@ export const SignInPage = () => {
               <div className="space-y-3">
                 {loading ? (
                   <>
-                    {...Array({ length: 2 }).map((_, key) => {
-                      <Skeleton key={key} className="h-10 rounded-md" />;
-                    })}
+                    {...Array({ length: 2 }).map((_, key) => (
+                      <Skeleton key={key} className="h-10 rounded-md" />
+                    ))}
                   </>
                 ) : (
                   <>

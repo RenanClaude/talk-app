@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import { handleGetUser } from "@/lib/server/auth";
-import { Providers } from "@/components/layout/Providers";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { Providers } from "@/components/Layouts/Providers";
+import { MainLayout } from "@/components/Layouts/MainLayout";
 
 const nunito = Nunito({ subsets: ["latin"] });
 

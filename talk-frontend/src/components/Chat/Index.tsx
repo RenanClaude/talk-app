@@ -4,7 +4,7 @@ import { useChatStore } from "@/stores/chatStore";
 import { MarkMessageAsSeenEvent, UpdateMessageEvent } from "@/types/Message";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { socket } from "../layout/Providers";
+import { socket } from "../Layouts/Providers";
 import dayjs from "dayjs";
 import { ChatHeader } from "./Header";
 import { ScaleLoader } from "react-spinners";
@@ -36,7 +36,7 @@ export const Chat = () => {
     attachment,
     audio,
   }: {
-    text?: string | null;
+    text?: string;
     attachment?: File | null;
     audio?: Blob | null;
   }) => {
@@ -64,7 +64,7 @@ export const Chat = () => {
   };
 
   const scrollToBottom = () => {
-    bodyMessageRef.current?.scrollIntoView();
+    bodyMessageRef.current?.scrollIntoView(false);
   };
 
   useEffect(() => {

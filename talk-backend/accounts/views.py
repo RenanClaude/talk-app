@@ -82,7 +82,7 @@ class UserView(APIView):
             extension = avatar.name.split(".")[-1]
 
             # Validate avatar
-            if not content_type == "image/png" or not content_type == "image/jpeg":
+            if not content_type == "image/png" and not content_type == "image/jpeg":
                 raise ValidationError(
                     "Somente arquivos do tipo PNG ou JPEG são suportados"
                 )
