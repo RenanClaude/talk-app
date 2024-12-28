@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,33 +80,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# DATABASE FOR MYSQL LOCAL
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'talk_db',
-#         'USER': 'root',
-#         'PORT': 3306,
-#         'OPTIONS': {
-#           'charset': 'utf8mb4'
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "talk_db",
+#         "USER": "root",
+#         # 'PASSWORD': 'DB_PASSWORD',
+#         "HOST": "localhost",  # Or an IP Address that your DB is hosted on
+#         "PORT": "3306",
+#         "OPTIONS": {
+#           "charset": "utf8mb4"
 #         }
 #     }
 # }
 
+
+# DATABASE FOR MYSQL IN A DOCKER CONTAINER
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "talk_db",
         "USER": "root",
-        # 'PASSWORD': 'DB_PASSWORD',
-        "HOST": "localhost",  # Or an IP Address that your DB is hosted on
-        "PORT": "3306",
-        "OPTIONS": {
-          "charset": "utf8mb4"
-        }
+        "PASSWORD": config("MYSQL_ROOT_PASSWORD", default=""),
+        "HOST": "127.0.0.1",
+        "PORT": "3308",
+        "OPTIONS": {"charset": "utf8mb4"},
     }
 }
 
