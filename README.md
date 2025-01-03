@@ -1,5 +1,5 @@
 # Talk App
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/RenanClaude/talk-app/blob/main/LICENSE) 
 
 # Sobre o projeto
 
@@ -10,55 +10,77 @@ Talk App é uma aplicação full stack web.
 A aplicação consiste em um sistema de mensagens instantâneas entre os usuários. Além de mensagens de texto, os usuários podem enviar imagens, documentos como por exemplo PDF, e áudios. Para utilizar, basta criar uma conta e fazer o login.
 
 ## Layout web
-![Web 1](https://github.com/acenelio/assets/raw/main/sds1/web1.png)
 
-![Web 2](https://github.com/acenelio/assets/raw/main/sds1/web2.png)
+### Criando uma conta
+![Web 1](https://github.com/RenanClaude/assets/blob/main/SignUp-Talk-App.png)
+
+### Home Page
+![Web 2](https://github.com/RenanClaude/assets/blob/main/Home-Talk-App.png)
+
+### Adicionando um novo contato
+![Web 3](https://github.com/RenanClaude/assets/blob/main/Home-Adding-A-Contact-Talk-App.png)
+
+### Enviando mensagem de texto (tela do Renan)
+![Web 4](https://github.com/RenanClaude/assets/blob/main/Renan-Screen-Talk-App.png)
+
+### Recebendo mensagem de texto (tela do João)
+![Web 5](https://github.com/RenanClaude/assets/blob/main/Joao-Screen-Talk-App.png)
+
+### Respondendo com mensagem de texto (tela do João)
+![Web 5](https://github.com/RenanClaude/assets/blob/main/Joao-Screen-2-Talk-App.png)
+
+### Enviando imagem e documento (tela do Renan)
+![Web 5](https://github.com/RenanClaude/assets/blob/main/Renan-Screen-4-Talk-App.png)
+
+### Atualizando dados (Avatar/Foto de perfil)
+![Web 5](https://github.com/RenanClaude/assets/blob/main/Minha-conta-2-Talk-App.png)
 
 ## Modelo conceitual
 ![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
 
 # Tecnologias utilizadas
 ## Back end
-- Java
-- Spring Boot
-- JPA / Hibernate
-- Maven
+- Python
+- Django
+- Django REST Framework
+- Docker
 ## Front end
-- HTML / CSS / JS / TypeScript
-- ReactJS
-- React Native
-- Apex Charts
-- Expo
+- TypeScript
+- Next.Js
+- React.Js
+- Tailwind CSS
+- Socket.IO
 ## Implantação em produção
-- Back end: Heroku
-- Front end web: Netlify
-- Banco de dados: Postgresql
+- Back end: 
 
 # Como executar o projeto
 
 ## Back end
-Pré-requisitos: Java 11
+Pré-requisitos:
+Python 3 ou acima
+venv - sudo apt install python3-venv
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/RenanClaude/talk-app
 
-# entrar na pasta do projeto back end
-cd backend
+# entrar na pasta do projeto Back-End
+cd talk-backend
 
 # executar o projeto
-./mvnw spring-boot:run
+Ativar ambiente virtual: source .venv/bin/activate
+Executar o servidor: python3 manage.py runserver
 ```
 
 ## Front end web
-Pré-requisitos: npm / yarn
+Pré-requisitos: Node.Js
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/RenanClaude/talk-app
 
-# entrar na pasta do projeto front end web
-cd front-web
+# entrar na pasta do projeto Front-End
+cd talk-frontend
 
 # instalar dependências
 yarn install
@@ -69,6 +91,6 @@ yarn start
 
 # Autor
 
-Wellington Mazoni de Andrade
+Renan Claude Grossl
 
-https://www.linkedin.com/in/wmazoni
+https://www.linkedin.com/in/renan-claude-dev/
