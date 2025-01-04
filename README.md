@@ -5,7 +5,7 @@
 
 https
 
-Talk App é uma aplicação full stack web.
+Talk App é uma aplicação Web Full-Stack.
 
 A aplicação consiste em um sistema de mensagens instantâneas entre os usuários. Além de mensagens de texto, os usuários podem enviar imagens, documentos como por exemplo PDF, e áudios. Para utilizar, basta criar uma conta e fazer o login.
 
