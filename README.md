@@ -34,22 +34,23 @@ A aplicação consiste em um sistema de mensagens instantâneas entre os usuári
 
 ### Atualizando dados (Avatar/Foto de perfil)
 ![Web 5](https://github.com/RenanClaude/assets/blob/main/Minha-conta-2-Talk-App.png)
-
+<br/>
+<br/>
 ## Modelo conceitual
-![Modelo Conceitual](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
+![Modelo Conceitual](https://github.com/RenanClaude/assets/blob/main/schema-talkapp.png)
 
 # Tecnologias utilizadas
 ## Back end
 - Python
 - Django
 - Django REST Framework
+- Socket.IO
 - Docker
 ## Front end
 - TypeScript
 - Next.Js
 - React.Js
 - Tailwind CSS
-- Socket.IO
 ## Implantação em produção
 - Back end: 
 
