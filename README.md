@@ -51,8 +51,6 @@ A aplicação consiste em um sistema de mensagens instantâneas entre os usuári
 - Tailwind CSS
 - Axios
 - Sonner
-## Implantação em produção
-- Back end: 
 
 # Como executar o projeto
 
