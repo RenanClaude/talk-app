@@ -3,8 +3,6 @@
 
 # Sobre o projeto
 
-https
-
 Talk App é uma aplicação Web Full-Stack.
 
 A aplicação consiste em um sistema de mensagens instantâneas entre os usuários. Além de mensagens de texto, os usuários podem enviar imagens, documentos como por exemplo PDF, e áudios. Para utilizar, basta criar uma conta e fazer o login.
@@ -51,6 +49,8 @@ A aplicação consiste em um sistema de mensagens instantâneas entre os usuári
 - Next.Js
 - React.Js
 - Tailwind CSS
+- Axios
+- Sonner
 ## Implantação em produção
 - Back end: 
 
@@ -60,6 +60,7 @@ A aplicação consiste em um sistema de mensagens instantâneas entre os usuári
 Pré-requisitos:
 Python 3 ou acima
 venv - sudo apt install python3-venv
+Docker
 
 ```bash
 # clonar repositório
@@ -84,10 +85,11 @@ git clone https://github.com/RenanClaude/talk-app
 cd talk-frontend
 
 # instalar dependências
-yarn install
+npm install
 
 # executar o projeto
-yarn start
+npm run build
+npm start
 ```
 
 # Autor
